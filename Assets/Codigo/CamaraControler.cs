@@ -5,30 +5,29 @@ using UnityEngine;
 public class CamaraControler : MonoBehaviour
 {
 
-    public Transform personaje;
-
-    private float tamañoCamara;
-    private float largoPantalla;
+    public GameObject jugador;
+    public Vector2 minimo;
+    public Vector2 maximo;
+    public float suavizado;
+    Vector2 velocity;
 
     // Start is called before the first frame update
     void Start()
     {
-        tamañoCamara = Camera.main.orthographicSize;
-        largoPantalla = tamañoCamara * 2;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        CalcularPosicionCamara();
+        
     }
 
-    void CalcularPosicionCamara()
+    void fixedUpdate()
     {
-        int pantallaPersonaje = (int)(personaje.position.y / largoPantalla);
+        float posX = Mathf.SmoothDamp(transform.position.x, jugador.transform.position.x, ref velocity.x, suavizado);
+        float posY = Mathf.SmoothDamp(transform.position.y, jugador.transform.position.y, ref velocity.y, suavizado);
 
-        float largoCamara = (pantallaPersonaje * largoPantalla) + tamañoCamara;
-
-        transform.position = new Vector3(transform.position.x, largoPantalla, transform.position.z); 
+        transform.position = new Vector3(Mathf.Clamp(posX, minimo.x, maximo.x), Mathf.Clamp(posY, minimo.y, maximo.y), transform.position.z);
     }
 }
