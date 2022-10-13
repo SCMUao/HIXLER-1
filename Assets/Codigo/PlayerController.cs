@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,12 +14,50 @@ public class PlayerController : MonoBehaviour
     public LayerMask whatIsGround;
     Animator anim;
 
+    [SerializeField] private float vida;
+    [SerializeField] private float maximoVida;
+    [SerializeField] private BarraDeVIda barraDeVida;
 
     // Start is called before the first frame update
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+
+        vida = maximoVida;
+        barraDeVida.InicializarBarraDeVida(vida);
+
+    }
+
+
+    public void TomarDaño(float daño)
+    {
+        vida -= daño;
+        barraDeVida.CambiarVidaActual(vida);
+        if(vida <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void Curar(float curacion)
+    {
+        if((vida + curacion) > maximoVida)
+        {
+            vida = maximoVida;
+        }
+
+        else
+        {
+            vida += curacion;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        Movement();
+        Jump();
     }
 
     // Update is called once per frame
@@ -28,16 +67,7 @@ public class PlayerController : MonoBehaviour
 
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
-
         FlipCharacter();
-    }
-
-
-
-    private void FixedUpdate()
-    {
-        Movement();
-        Jump();
     }
 
 
