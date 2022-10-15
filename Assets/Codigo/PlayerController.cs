@@ -18,6 +18,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maximoVida;
     [SerializeField] private BarraDeVIda barraDeVida;
 
+
+    public Rigidbody2D rb2D;
+    public bool sePuedeMover = true;
+    [SerializeField] private Vector2 velocidadRebote;
+
     // Start is called before the first frame update
 
     void Start()
@@ -77,15 +82,17 @@ public class PlayerController : MonoBehaviour
         velY = rb.velocity.y;
 
         rb.velocity = new Vector2(velX * speed, velY);
-
-        if(rb.velocity.x != 0)
+        if(sePuedeMover)
         {
-            anim.SetBool("Walk", true);
-        }
-        else
-        {
-            anim.SetBool("Walk", false);
+            if (rb.velocity.x != 0)
+            {
+                anim.SetBool("Walk", true);
+            }
+            else
+            {
+                anim.SetBool("Walk", false);
 
+            }
         }
     }
 
@@ -113,5 +120,9 @@ public class PlayerController : MonoBehaviour
     }
 
     
+    public void Rebote(Vector2 puntoGolpe)
+    {
+        rb2D.velocity = new Vector2(-velocidadRebote.x * puntoGolpe.x, velocidadRebote.y)
+    }
 
 }
