@@ -5,37 +5,43 @@ using UnityEngine;
 public class MovBola : MonoBehaviour
 {
 
-    public float speed;
-    public bool esDerecha;
+    [SerializeField] private float velocidad;
 
-    public float contadorTiempo;
-    public float TiempoCambio;
+    [SerializeField] private Transform BolaDeFuego;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float distancia;
+
+    [SerializeField] private bool moviendoDerecha;
+
+    private Rigidbody2D rb;
+
+    private void Start()
     {
-        contadorTiempo = TiempoCambio;
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixUpdate()
     {
-        if(esDerecha == true)
-        {
-            transform.position += Vector3.right * speed * Time.deltaTime;
-        }
+        RaycastHit2D informacionSuelo = Physics2D.Raycast(BolaDeFuego.position, Vector2.down, distancia);
 
-        if (esDerecha == false)
-        {
-            transform.position += Vector3.left * speed * Time.deltaTime;
-        }
+        rb.velocity = new Vector2(velocidad, rb.velocity.y);
 
-        contadorTiempo -= Time.deltaTime;
-
-        if(contadorTiempo <= 0)
+        if(informacionSuelo == false)
         {
-            contadorTiempo = TiempoCambio;
-            esDerecha = !esDerecha;
+            Girar();
         }
+    }
+
+
+    private void Girar()
+    {
+        moviendoDerecha = !moviendoDerecha;
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y + 180, 0);
+        velocidad *= -1;
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(BolaDeFuego.transform.position, BolaDeFuego.transform.position + Vector3.down * distancia);
     }
 }

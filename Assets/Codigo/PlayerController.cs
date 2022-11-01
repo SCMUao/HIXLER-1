@@ -14,11 +14,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask whatIsGround;
     Animator anim;
 
-    [SerializeField] private float vida;
-    [SerializeField] private float maximoVida;
-    [SerializeField] private BarraDeVIda barraDeVida;
-
-
+    //daño
     public Rigidbody2D rb2D;
     public bool sePuedeMover = true;
     [SerializeField] private Vector2 velocidadRebote;
@@ -30,34 +26,8 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
 
-        vida = maximoVida;
-        barraDeVida.InicializarBarraDeVida(vida);
-
     }
 
-
-    public void TomarDaño(float daño)
-    {
-        vida -= daño;
-        barraDeVida.CambiarVidaActual(vida);
-        if(vida <= 0)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    public void Curar(float curacion)
-    {
-        if((vida + curacion) > maximoVida)
-        {
-            vida = maximoVida;
-        }
-
-        else
-        {
-            vida += curacion;
-        }
-    }
 
     private void FixedUpdate()
     {
@@ -122,7 +92,7 @@ public class PlayerController : MonoBehaviour
     
     public void Rebote(Vector2 puntoGolpe)
     {
-        rb2D.velocity = new Vector2(-velocidadRebote.x * puntoGolpe.x, velocidadRebote.y)
+        rb2D.velocity = new Vector2(-velocidadRebote.x * puntoGolpe.x, velocidadRebote.y);
     }
 
 }

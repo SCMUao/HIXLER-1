@@ -755,7 +755,6 @@ GameObject:
   - component: {fileID: 764182127}
   - component: {fileID: 764182129}
   - component: {fileID: 764182128}
-  - component: {fileID: 764182130}
   m_Layer: 0
   m_Name: BolaDeFuego
   m_TagString: Untagged
@@ -850,18 +849,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &764182130
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 764182126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71b8d63759dcf1146967c2892fe792ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &908903911
 GameObject:
   m_ObjectHideFlags: 0
@@ -1150,9 +1137,9 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 128
-  vida: 10
-  maximoVida: 10
-  barraDeVida: {fileID: 563544890}
+  rb2D: {fileID: 0}
+  sePuedeMover: 1
+  velocidadRebote: {x: 0, y: 0}
 --- !u!212 &1140953733
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1577,6 +1564,7 @@ GameObject:
   - component: {fileID: 1559685486}
   - component: {fileID: 1559685487}
   - component: {fileID: 1559685488}
+  - component: {fileID: 1559685489}
   m_Layer: 0
   m_Name: AdminBolaFuego
   m_TagString: BolaFuego
@@ -1596,10 +1584,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8ccdbe3b776e643abfd32a281d66bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  esDerecha: 0
-  contadorTiempo: 0
-  TiempoCambio: 2
+  velocidad: 0
+  BolaDeFuego: {fileID: 0}
+  distancia: 0
+  moviendoDerecha: 0
 --- !u!4 &1559685484
 Transform:
   m_ObjectHideFlags: 0
@@ -1665,6 +1653,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37382e5a7103f72479e62139d1bf42af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1559685489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559685482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb8ccdbe3b776e643abfd32a281d66bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocidad: 6
+  BolaDeFuego: {fileID: 764182127}
+  distancia: 0
+  moviendoDerecha: 0
 --- !u!1 &1592874776
 GameObject:
   m_ObjectHideFlags: 0
