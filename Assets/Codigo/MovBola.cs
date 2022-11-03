@@ -7,10 +7,10 @@ public class MovBola : MonoBehaviour
 
     [SerializeField] private float velocidad;
 
-    [SerializeField] private Transform BolaDeFuego;
+    [SerializeField] private Transform controladorSuelo;
 
     [SerializeField] private float distancia;
-
+     
     [SerializeField] private bool moviendoDerecha;
 
     private Rigidbody2D rb;
@@ -20,9 +20,9 @@ public class MovBola : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void FixUpdate()
+    private void FixedUpdate()
     {
-        RaycastHit2D informacionSuelo = Physics2D.Raycast(BolaDeFuego.position, Vector2.down, distancia);
+        RaycastHit2D informacionSuelo = Physics2D.Raycast(controladorSuelo.position, Vector2.down, distancia);
 
         rb.velocity = new Vector2(velocidad, rb.velocity.y);
 
@@ -39,9 +39,10 @@ public class MovBola : MonoBehaviour
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y + 180, 0);
         velocidad *= -1;
     }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(BolaDeFuego.transform.position, BolaDeFuego.transform.position + Vector3.down * distancia);
+        Gizmos.DrawLine(controladorSuelo.transform.position, controladorSuelo.transform.position + Vector3.down * distancia);
     }
 }
