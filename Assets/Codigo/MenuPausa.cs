@@ -11,6 +11,14 @@ public class MenuPausa : MonoBehaviour
     [SerializeField] private GameObject menuPausa;
 
 
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Pausa();
+        }
+    }
+
     public void Pausa()
     {
         Time.timeScale = 0f;
